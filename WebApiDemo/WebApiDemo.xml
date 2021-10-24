@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiDemo</name>
+    </assembly>
+    <members>
+        <member name="M:WebApiDemo.Controllers.CountryController.Get">
+            <summary>
+            Get The List of all countries
+            </summary>
+            <return>List of All Countries </return>
+        </member>
+        <member name="M:WebApiDemo.Controllers.CountryController.Post(WebApiDemo.Core.Entities.Country)">
+            <summary>
+            Create Country
+            </summary>
+            <remarks>
+                Sample Parameter for Post
+                
+                 POST: api/v1/country{
+                     name:"Pakistan",
+                     DialCode:"+92",
+                     regionId: 
+                 }
+            </remarks>
+            <param name="country"></param>
+        </member>
+    </members>
+</doc>
