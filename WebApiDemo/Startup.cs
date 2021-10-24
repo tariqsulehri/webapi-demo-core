@@ -52,7 +52,7 @@ namespace WebApiDemo
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
             services.AddSingleton<ICallRepository, PhoneCallRepository>();
             services.AddSingleton<IRegionRepository, RegionRepository>();
-            services.AddTransient<ITelcoRepository, TelcoRepository>();
+            services.AddSingleton<ITelcoRepository, TelcoRepository>();
 
             //Generic Injections
             services.AddSingleton<IApiResponseRepository, ApiResponseRepository>();

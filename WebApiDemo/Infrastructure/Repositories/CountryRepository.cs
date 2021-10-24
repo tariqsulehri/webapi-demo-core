@@ -80,7 +80,7 @@ namespace WebApiDemo.Infrastructure.Repositories
                                  Prefix = con.DialCode,
                                  RegionId =  reg.Id,
                                  Region = reg.Name
-                             });
+                             }).ToList();
 
                 var apiResponse = _apiResponseRepository.ComponseResponse(
                                         1, ApplicationMessages.Success,

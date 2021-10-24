@@ -8,6 +8,8 @@ using WebApiDemo.Core.Entities;
 using WebApiDemo.Core.GenericEntiries;
 using WebApiDemo.Infrastructure.IRepositories;
 using WebApiDemo.Infrastructure.IRepositories.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WebApiDemo.Infrastructure.Repositories
 {
@@ -21,22 +23,17 @@ namespace WebApiDemo.Infrastructure.Repositories
               new Telco{Id=3, Name="Ufone", CountryId=1}
         };
 
-        private readonly IRegionRepository _regionRepository;
         private readonly ICountryRepository _countryRepository;
-       // private readonly ITelcoRepository _telcoRepository;
         private readonly IApiResponseRepository _apiResponseRepository;
 
         public TelcoRepository(IApiResponseRepository apiResponseRepository,
                                ICountryRepository countryRepository,
                                IRegionRepository regionRepository
-                              // ITelcoRepository telcoRepository
-            )
+                    )
         {
 
             _apiResponseRepository = apiResponseRepository;
-            _regionRepository = regionRepository;
             _countryRepository = countryRepository;
-            //_telcoRepository = telcoRepository;
 
         }
 
@@ -55,30 +52,31 @@ namespace WebApiDemo.Infrastructure.Repositories
 
             try
             {
-                ApiResponse countries = _countryRepository.List();
-
-                //var result = countries.Data;
-                //var result = telcos.Join(countries,
-                //                      telco => telco.CountryId,
-                //                      country => country.Id,
-                //                      (telco, country) =>
-                //             new CountryDto
-                //             {
-                //                 Id = telco.Id,
-                //                 Name = telco.Name,
-                //                 CountryId =  country.Id,
-                //                 Country = country.Country,
-                //                 Prefix = country.DialCode,
-                //                 RegionId = country.Id,
-                //                 Region = country.Region
-                //             });
+                ApiResponse countriesResp = _countryRepository.List();
+                List<CountryDto> countryList = (List<CountryDto>)(countriesResp.Data);
 
 
-                //var apiResponse = _apiResponseRepository.ComponseResponse(
-                //                        1, ApplicationMessages.Success,
-                //                        result
-                //);
-                ApiResponse apiResponse = new ApiResponse();
+                var result = telcos.Join(countryList,
+                                      telco => telco.CountryId,
+                                      country => country.Id,
+                                      (telco, country) =>
+                             new TelcoDto
+                             {
+                                 Id = telco.Id,
+                                 Name = telco.Name,
+                                 CountryId = country.Id,
+                                 Country = country.Name,
+                                 Prefix = country.Prefix,
+                                 RegionId = country.RegionId,
+                                 Region = country.Region
+                             });
+
+
+                var apiResponse = _apiResponseRepository.ComponseResponse(
+                                        1, ApplicationMessages.Success,
+                                        result
+                );
+
                 return apiResponse;
 
             }

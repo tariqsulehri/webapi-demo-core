@@ -14,21 +14,19 @@ namespace WebApiDemo.Controllers
     [ApiController]
     public class TelcoController : ControllerBase
     {
-        //private readonly ITelcoRepository _telcoRepository;
-        //public TelcoController(ITelcoRepository telcoRepository)
-        //{
-        //    _telcoRepository = telcoRepository;
-        //}
-
+        private readonly ITelcoRepository _telcoRepository;
+        public TelcoController(ITelcoRepository telcoRepository)
+        {
+            _telcoRepository = telcoRepository;
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var env = Environment.GetEnvironmentVariable("ConnectionString:Staging");
             try
             {
-                //var result = _telcoRepository.List();
-                return new JsonResult(env);
+                var result = _telcoRepository.List();
+                return new JsonResult(result);
             }
             catch (Exception)
             {
