@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using WebApiDemo.Core.Entities;
+using WebApiDemo.Core.GenericEntiries;
 using WebApiDemo.Infrastructure.IRepositories;
+using WebApiDemo.Infrastructure.IRepositories.Generic;
+using WebApiDemo.Infrastructure.Repositories.Generic;
 
 namespace WebApiDemo.Infrastructure.Repositories
 {
@@ -20,17 +24,54 @@ namespace WebApiDemo.Infrastructure.Repositories
 
         };
 
-        public void Add(Region region)
+
+        private readonly IApiResponseRepository _apiResponseRepository;
+
+        public RegionRepository(IApiResponseRepository apiResponseRepository)
+        {
+           _apiResponseRepository = apiResponseRepository;
+        }
+
+
+        public ApiResponse Add(Region region)
         {
             throw new NotImplementedException();
         }
 
-        public List<Region> List()
+        public ApiResponse List()
         {
-            return regions.ToList();
+            try
+            {
+
+                var result  = regions.ToList();
+                var apiResponse = _apiResponseRepository.ComponseResponse(
+                                        1, ApplicationMessages.Success,
+                                        result
+                );
+
+                return apiResponse;
+
+            }
+            catch (Exception e)
+            {
+                // - - - - - - -  L o g g i n g   E r r o r  - - - - - - - - 
+                string className = GetType().FullName;
+                string currentMethodName = className + " ---> " + MethodBase.GetCurrentMethod().DeclaringType.Name;
+                var apiResponse = _apiResponseRepository.ComponseResponse(
+                                                 0, ApplicationMessages.Fail,
+                                                 null,
+                                                 new Error
+                                                 {
+                                                     Code = e.HResult,
+                                                     Description = currentMethodName + " ---> " + e.Message
+                                                 }
+                );
+
+                return apiResponse;
+            }
         }
 
-        public void Update(Region region)
+        public ApiResponse Update(Region region)
         {
             throw new NotImplementedException();
         }

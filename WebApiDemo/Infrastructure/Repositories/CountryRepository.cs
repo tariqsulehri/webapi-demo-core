@@ -68,7 +68,9 @@ namespace WebApiDemo.Infrastructure.Repositories
         {
             try
             {
-                var regions = _regionRepository.List();
+                ApiResponse regionsList = _regionRepository.List();
+                List<Region> regions = (List<Region>)(regionsList.Data);
+
                 var result = countries.Join(regions,
                                       con => con.RegionId,
                                       reg => reg.Id,

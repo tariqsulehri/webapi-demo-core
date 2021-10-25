@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiDemo.Core.Entities;
+using WebApiDemo.Core.GenericEntiries;
 
 namespace WebApiDemo.Infrastructure.IRepositories
 {
     public interface ICallRepository
     {
-        public void AddCall(PhoneCall phoneCall);
-        public void ListCalls();
-        public void ListCallsByPhone(string phone);
-        public void ListCallsByPhones(string fromPhone, string toPhone );
-        public void ListCallsByDates(DateTime fromDate, DateTime toDate);
+        ApiResponse AddCall(PhoneCall phoneCall);
+        ApiResponse ListCalls();
+        ApiResponse ListCallsByPhone(string phone);
+        ApiResponse ListCallsByPhones(string fromPhone, string toPhone );
+        ApiResponse ListCallsByDates(DateTime fromDate, DateTime toDate);
     }
 }
