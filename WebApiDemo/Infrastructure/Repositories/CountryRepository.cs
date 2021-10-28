@@ -71,18 +71,24 @@ namespace WebApiDemo.Infrastructure.Repositories
                 ApiResponse regionsList = _regionRepository.List();
                 List<Region> regions = (List<Region>)(regionsList.Data);
 
-                var result = countries.Join(regions,
-                                      con => con.RegionId,
-                                      reg => reg.Id,
-                                      (con, reg) =>
-                             new CountryDto
-                             {
-                                 Id = con.Id,
-                                 Name = con.Name,
-                                 Prefix = con.DialCode,
-                                 RegionId =  reg.Id,
-                                 Region = reg.Name
-                             }).ToList();
+                //var result = countries.Join(regions,
+                //                      con => con.RegionId,
+                //                      reg => reg.Id,
+                //                      (con, reg) =>
+                //             new CountryDto
+                //             {
+                //                 Id = con.Id,
+                //                 Name = con.Name,
+                //                 Prefix = con.DialCode,
+                //                 RegionId =  reg.Id,
+                //                 Region = reg.Name
+                //             }).ToList();
+
+                var result = (from  con in countries
+                               join  reg in regions 
+                               on con.RegionId equals reg.Id
+                              select new { con, reg }).ToList();
+
 
                 var apiResponse = _apiResponseRepository.ComponseResponse(
                                         1, ApplicationMessages.Success,

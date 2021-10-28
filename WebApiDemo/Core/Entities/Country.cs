@@ -20,5 +20,7 @@ namespace WebApiDemo.Core.Entities
         [Required]
         public int RegionId { get; set; }
 
+       // public string Location { get; set; }
+
     }
 }

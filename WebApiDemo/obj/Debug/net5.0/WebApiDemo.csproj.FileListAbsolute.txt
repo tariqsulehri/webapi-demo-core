@@ -27,3 +27,4 @@ D:\Projects\DotNetCoreProjects\WebApiDemo\WebApiDemo\obj\Debug\net5.0\WebApiDemo
 D:\Projects\DotNetCoreProjects\WebApiDemo\WebApiDemo\obj\Debug\net5.0\ref\WebApiDemo.dll
 D:\Projects\DotNetCoreProjects\WebApiDemo\WebApiDemo\obj\Debug\net5.0\WebApiDemo.pdb
 D:\Projects\DotNetCoreProjects\WebApiDemo\WebApiDemo\obj\Debug\net5.0\WebApiDemo.genruntimeconfig.cache
+D:\Projects\DotNetCoreProjects\WebApiDemo\WebApiDemo\obj\Debug\net5.0\WebApiDemo.csprojAssemblyReference.cache
